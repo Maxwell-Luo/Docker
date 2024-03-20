@@ -1,0 +1,42 @@
+#!/bin/bash
+
+YELLOW_TEXT='\033[93m'
+RED_TEXT='\033[91m'
+GREEN_TEXT='\033[0;32m'
+BLUE_TEXT='\033[0;34m'
+
+EchoR() {
+	echo -e "${RED_TEXT}$1"
+	tput init
+}
+
+EchoY() {
+	echo -e "${YELLOW_TEXT}$1"
+	tput init
+}
+
+EchoG() {
+	echo -e "${GREEN_TEXT}$1"
+	tput init
+}
+
+EchoB() {
+	echo -e "${BLUE_TEXT}$1"
+	tput init
+}
+
+CopyConfig() {
+
+	if [ ! -f "$VOLUME_DATA_PATH/postgresql.conf" ]; then
+		EchoY "Copying configuration file"
+		TEMP_NAME="temp_server"
+		docker run --name $TEMP_NAME -d $IMAGE_NAME:$VERSION  
+		EchoY "Waiting for initialization" && sleep 1
+		docker cp $TEMP_NAME:$DEFAULT_DATA_PATH $ROOT_PATH
+		docker stop $TEMP_NAME > /dev/null
+		docker rm $TEMP_NAME > /dev/null
+		EchoY "Copying completed"
+	fi
+
+}
+
