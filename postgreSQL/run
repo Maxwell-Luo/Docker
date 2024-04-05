@@ -7,8 +7,8 @@ CONTAINER_NAME="postgre_server"
 IMAGE_NAME=$CONTAINER_NAME
 VERSION=1.0
 
-ROOT_PATH="$HOME/postgreSQL"
-VOLUME_DATA_PATH="$HOME/postgreSQL/data"
+ROOT_PATH="$HOME/Docker/postgreSQL"
+VOLUME_DATA_PATH="$HOME/Docker/postgreSQL/data"
 DEFAULT_DATA_PATH="/var/lib/postgresql/data"
 
 
@@ -40,7 +40,7 @@ else
 	--name $CONTAINER_NAME \
 	-v $VOLUME_DATA_PATH:$DEFAULT_DATA_PATH \
 	-e POSTGRES_USER=mike \
-	-e POSTGRES_PASSWORD=password2222 \
+	-e POSTGRES_PASSWORD=password \
 	-p 5432:5432 \
 	-d \
 	$IMAGE_NAME:$VERSION
